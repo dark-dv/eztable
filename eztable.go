@@ -14,10 +14,10 @@ type Table struct {
 
 // SetStyle will set the tables style.
 func (t *Table) SetStyle(s *Style) error {
-	if t.style.Body == nil {
+	if s == nil {
 		return fmt.Errorf("no body styling inside of style")
 	}
-	if t.style.Header == nil {
+	if s == nil {
 		return fmt.Errorf("no header styling inside of style")
 	}
 
