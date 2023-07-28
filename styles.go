@@ -50,6 +50,8 @@ func (b *Body) HasBottom() bool {
 var (
 	Lite *Style = &Style{
 		Header: &Header{
+			HeaderLeft:         " ",
+			HeaderSplitter:     " ",
 			BottomLeft:         " ",
 			BottomRight:        " ",
 			BottomIntersection: " ",
