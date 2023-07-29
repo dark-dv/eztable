@@ -99,6 +99,7 @@ var (
 			HeaderSplitter: " ",
 		},
 		Body: &Body{
+			BodyLeft:     " ",
 			BodySplitter: " ",
 		},
 	}
