@@ -7,17 +7,17 @@ func (t *Table) renderHeaders() {
 	var out []string
 
 	if t.style.Header.HasTop() {
-		out = append(out, t.style.Header.TopLeftCorner)
+		out = append(out, *t.style.Header.TopLeftCorner)
 		for i, cell := range t.Cells {
-			out = append(out, Split(strings.Repeat(t.style.Header.TopRow, Length(ApplyPadding(Repeat(" ", cell.FindSpacing()), cell.FindSpacing(), cell.Alignment.Header))))...)
+			out = append(out, Split(strings.Repeat(*t.style.Header.TopRow, Length(ApplyPadding(Repeat(" ", cell.FindSpacing()), cell.FindSpacing(), cell.Alignment.Header))))...)
 
 			if i+1 == len(t.Cells) {
 				continue
 			} else {
-				out = append(out, t.style.Header.TopIntersection)
+				out = append(out, *t.style.Header.TopIntersection)
 			}
 		}
-		out = append(out, t.style.Header.TopRightCorner)
+		out = append(out, *t.style.Header.TopRightCorner)
 		t.output = append(t.output, out)
 	}
 	out = make([]string, 0)
@@ -37,17 +37,17 @@ func (t *Table) renderHeaders() {
 	out = make([]string, 0)
 
 	if t.style.Header.HasBottom() {
-		out = append(out, t.style.Header.BottomLeft)
+		out = append(out, *t.style.Header.BottomLeft)
 		for i, cell := range t.Cells {
-			out = append(out, Split(strings.Repeat(t.style.Header.BottomRow, Length(ApplyPadding(Repeat(" ", cell.FindSpacing()), cell.FindSpacing(), cell.Alignment.Header))))...)
+			out = append(out, Split(strings.Repeat(*t.style.Header.BottomRow, Length(ApplyPadding(Repeat(" ", cell.FindSpacing()), cell.FindSpacing(), cell.Alignment.Header))))...)
 
 			if i+1 == len(t.Cells) {
 				continue
 			} else {
-				out = append(out, t.style.Header.BottomIntersection)
+				out = append(out, *t.style.Header.BottomIntersection)
 			}
 		}
-		out = append(out, t.style.Header.BottomRight)
+		out = append(out, *t.style.Header.BottomRight)
 		t.output = append(t.output, out)
 	}
 

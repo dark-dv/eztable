@@ -4,6 +4,7 @@ package eztable
 type Cell struct {
 	Alignment *Align
 	Title     string
+	Footer    string
 	Bodys     []string
 }
 
@@ -11,6 +12,7 @@ type Cell struct {
 type Align struct {
 	Header Alignment
 	Body   Alignment
+	Footer Alignment
 }
 
 // FindSpacing will find the spacing for a cell provided.

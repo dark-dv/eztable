@@ -32,18 +32,20 @@ func (t *Table) renderBody() {
 		out = make([]string, 0)
 	}
 
+
+
 	if t.style.Body.HasBottom() {
-		out = append(out, t.style.Body.BottomLeftCorner)
+		out = append(out, *t.style.Body.BottomLeftCorner)
 		for i, cell := range t.Cells {
-			out = append(out, Split(strings.Repeat(t.style.Body.BottomRow, Length(ApplyPadding(Repeat(" ", cell.FindSpacing()), cell.FindSpacing(), cell.Alignment.Body))))...)
+			out = append(out, Split(strings.Repeat(*t.style.Body.BottomRow, Length(ApplyPadding(Repeat(" ", cell.FindSpacing()), cell.FindSpacing(), cell.Alignment.Body))))...)
 
 			if i+1 == len(t.Cells) {
 				continue
 			} else {
-				out = append(out, t.style.Body.BottomIntersection)
+				out = append(out, *t.style.Body.BottomIntersection)
 			}
 		}
-		out = append(out, t.style.Body.BottomRightCorner)
+		out = append(out, *t.style.Body.BottomRightCorner)
 		t.output = append(t.output, out)
 	}
 }
