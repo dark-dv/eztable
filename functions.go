@@ -44,37 +44,42 @@ func (t *Table) TotalBodys() int {
 
 // Split will split the text character by character, except escape codes which are stored as a whole item in itself.
 func Split(i string) []string {
-	// Regular expression to match ANSI escape codes
-	regex := `\x1b\[([0-9]{1,2}(;[0-9]{1,2})*)?[m|K]`
+	ansiPattern := `\x1b\[[0-9;]*m`
 
-	// Compile the regular expression
-	re := regexp.MustCompile(regex)
+	// Compile the regular expression pattern
+	re := regexp.MustCompile(ansiPattern)
 
-	// Find all occurrences of escape codes
-	matches := re.FindAllStringIndex(i, -1)
+	// Find all occurrences of ANSI escape codes in the input string
+	ansiCodes := re.FindAllStringIndex(input, -1)
 
-	// Initialize the resulting slice with a capacity for efficiency
+	// Initialize the result array
 	var result []string
-	result = make([]string, 0, len(matches)+1)
 
-	// Add substrings between escape codes to the result slice
-	startIdx := 0
-	for _, matchIdx := range matches {
-		endIdx := matchIdx[0]
-		escapeCode := matchIdx[1]
+	// Start position for slicing the input string
+	start := 0
 
-		// Append regular characters between escape codes
-		result = append(result, i[startIdx:endIdx])
+	// Process each ANSI escape code and the text between them
+	for _, indices := range ansiCodes {
+		startIndex, endIndex := indices[0], indices[1]
 
-		// Append the escape code as a single element
-		result = append(result, i[endIdx:escapeCode])
+		// Append the text between the previous escape code and the current one
+		rawChars := input[start:startIndex]
+		for _, char := range rawChars {
+			result = append(result, string(char))
+		}
 
-		// Move the startIdx to the next position
-		startIdx = escapeCode
+		// Append the ANSI escape code itself
+		result = append(result, input[startIndex:endIndex])
+
+		// Update the start position for the next iteration
+		start = endIndex
 	}
 
-	// Append the remaining characters after the last escape code (or the entire string if no escape codes are found)
-	result = append(result, i[startIdx:])
+	// Append the remaining text after the last escape code, if any
+	rawChars := input[start:]
+	for _, char := range rawChars {
+		result = append(result, string(char))
+	}
 
 	return result
 }
