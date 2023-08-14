@@ -43,7 +43,7 @@ func (t *Table) TotalBodys() int {
 }
 
 // Split will split the text character by character, except escape codes which are stored as a whole item in itself.
-func Split(i string) []string {
+func Split(input string) []string {
 	ansiPattern := `\x1b\[[0-9;]*m`
 
 	// Compile the regular expression pattern
